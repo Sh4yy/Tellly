@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+body {
+    background-color: #F8F8F8;
+    display: grid;
+    margin: 0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 100%;
+    grid-template-areas: 
+        "nav-bar"
+        "container";
+}
+
+.nav-bar {
+    grid-area: nav-bar;
+    background-color: white;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 3.5em;
+    height: 3.5em;
+    padding: 20px 35px; 
+}
+
+.app-name {
+    font-size: 2.2em;
+    font-family: 'Roboto';
+    font-weight: 500;
+    text-decoration: none;
+    color: #2e2e2e;
+    padding: 20px 35px
+}
+
+.container {
+    grid-area: container;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile {
+    background-color: blue;
+    background-image: url("../assets/portrait.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.08);
+}
+
+#name {
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 42px;
+    color: #606060;
+}
+
+.submission {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    /* justify-content: space-between; */
+}
+
+.inp-text {
+    width: 80vw;
+    height: 60vw;
+    max-width: 500px;
+    max-height: 300px;
+    background: #F5F5F5;
+    mix-blend-mode: normal;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 0px 10px;
+    margin: 0px 10px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.4em;
+    padding: 1em;
+    /* line-height: px; */
+}
+
+.submit-btn {
+    position: relative;
+    top: 10px;
+    display: block;
+    width: 40%;
+    height: 20%;
+    margin-left: 30%;
+    margin-right: 30%;
+    background: linear-gradient(197.94deg, #FAD961 -133.21%, #F76B1C 147.36%);
+    box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.102582);
+    border-radius: 27.625px;
+    border-style: solid;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 27.2px;
+    line-height: 32px;
+    color: white;
+}
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : portrait) {
+    .inp-text {
+        position: relative;
+        top: -20px;
+        height: 50vw;
+    }
+    .submit-btn {
+        top: -10px;
+    }
+}
+
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) 
+and (orientation : portrait) {
+    .inp-text {
+        position: relative;
+        top: -20px;
+        height: 50vw;
+    }
+    .submit-btn {
+        top: 10px;
+    }
+}
+
+@media only screen 
+and (min-device-height : 800px) 
+and (orientation : portrait) {
+    .inp-text {
+        position: relative;
+        top: 20px;
+        height: 60vw;
+    }
+    .submit-btn {
+        top: 40px;
+    }
+}
+
+@media only screen 
+and (max-device-width : 360px) 
+and (max-device-width : 640px) 
+and (orientation : portrait) {
+    .logo {
+        width: 3em;
+        height: 3em;
+        padding: 15px 30px; 
+    }
+    
+    .app-name {
+        font-size: 1.8em;
+        padding: 15px 30px
+    }
+    #profile {
+        width: 7em;
+        height: 7em;
+    }
+    #name {
+        position: relative;
+        top: -15px;
+        font-size: 1.5em;
+    }
+    .inp-text {
+        position: relative;
+        top: -25px;
+        height: 55vw;
+        font-size: 1em;
+    }
+    .submit-btn {
+        top: -15px;
+        font-size: 1.4em;
+    }
+}
