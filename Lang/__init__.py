@@ -1,9 +1,9 @@
 from string import Template
-import yaml
+from ruamel.yaml import YAML
 import spintax
 
 
-data = yaml.safe_load(open('Lang/lang.yaml'))
+data = YAML().load(open('Lang/lang.yaml').read())
 
 
 def get_message(msg_path, **kwargs):

@@ -1,7 +1,12 @@
-from telegram import Update
-from Models import User, Group
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from Models import User, Group, Feedback
 from Lang import get_message
 from config import get_config
+from utilities import Twitter, Telegram
+
+
+def break_msg(message):
+    return message.split('**')
 
 
 def is_private_chat(update: Update):
@@ -46,7 +51,7 @@ def get_group(update: Update):
         return group
 
     group = Group.register(group_data.id, group_data.type,
-                           group_data.user_name, group_data.title)
+                           group_data.username, group_data.title)
 
     return group
 
@@ -57,11 +62,24 @@ def start(bot, update):
     if is_private_chat(update):
         user = get_user(update, create=True)
         name = user.first_name if user.first_name else user.username
-        user.send_message(get_message("start/private", name=name), parse_mode="markdown")
+
+        # create buttons
+        buttons = [[get_config()['telegram']['btn']['link'],
+                    get_config()['telegram']['btn']['help']]]
+        markup = ReplyKeyboardMarkup(buttons)
+        msgs = break_msg((get_message("start/private", name=name)))
+
+        for msg in msgs:
+            user.send_message(msg, reply_markup=markup, parse_mode="html")
 
     elif is_public_chat(update):
         _ = get_group(update)
-        update.message.reply_text(get_message("start/public"), parse_mode="markdown")
+        user = get_user(update, create=False)
+        msgs = break_msg(get_message("start/public", name=user.get_name()))
+
+        for msg in msgs[:-1]:
+            update.message.reply_text(msg, parse_mode="html")
+        update.message.reply_text(msgs[-1], reply_markup=create_start_bot(), parse_mode="html")
 
 
 def help(bot, update):
@@ -69,11 +87,21 @@ def help(bot, update):
     if is_private_chat(update):
         user = get_user(update, create=True)
         name = user.first_name if user.first_name else user.username
-        user.send_message(get_message("about/private", name=name), parse_mode="markdown")
+        msgs = break_msg(get_message("about/private", name=name))
+
+        for msg in msgs:
+            user.send_message(msg, parse_mode="html")
 
     elif is_public_chat(update):
         _ = get_group(update)
-        update.message.reply_text(get_message("about/public"), parse_mode="markdown")
+        user = get_user(update, create=False)
+        msgs = break_msg(get_message("about/public", name=user.get_name()))
+
+        for msg in msgs[:-1]:
+            update.message.reply_text(msg, parse_mode="html")
+        update.message.reply_text(msgs[-1],
+                                  reply_markup=create_start_bot('Start Tellly Bot'),
+                                  parse_mode="html")
 
 
 def link(bot, update):
@@ -82,16 +110,26 @@ def link(bot, update):
     if is_private_chat(update):
         user = get_user(update, create=True)
         name = user.first_name if user.first_name else user.username
+
+        telegram_link = Telegram(user.public_url)
+        twitter_link = Twitter(user.public_url)
+
+        telegram_btn = InlineKeyboardButton(telegram_link.get_name(), url=telegram_link.get_link())
+        twitter_btn = InlineKeyboardButton(twitter_link.get_name(), url=twitter_link.get_link())
+        open_btn = InlineKeyboardButton("Open link", url=user.public_url)
+        markup = InlineKeyboardMarkup([[telegram_btn, twitter_btn], [open_btn]])
+
         user.send_message(get_message("link/private",
                                       name=name,
                                       link=user.public_url),
-                          parse_mode="markdown")
-
-        print(user.get_profile_picture())
+                          reply_markup=markup,
+                          parse_mode="html")
 
     elif is_public_chat(update):
         _ = get_group(update)
-        update.message.reply_text(get_message("link/public"), parse_mode="markdown")
+        user = get_user(update, create=False)
+        update.message.reply_text(get_message("link/public", name=user.get_name()),
+                                  reply_markup=create_start_bot('Get your link'), parse_mode="html")
 
 
 def admin(bot, update):
@@ -103,9 +141,10 @@ def admin(bot, update):
     else:
         user_ct = User.objects.count()
         group_ct = Group.objects.count()
+        feedback_ct = Feedback.objects.count()
 
         user.send_message(f"Admin Info:\n\nUsers: {user_ct}\
-                          \nGroups: {group_ct}")
+                          \nGroups: {group_ct}\nFeedback: {feedback_ct}")
 
 
 def new_message(user, message):
@@ -115,6 +154,15 @@ def new_message(user, message):
     :param message: received message
     """
 
-    user.send_message(get_message("message", message=message), parse_mode="markdown")
+    Feedback.new(message, user)
+    msgs = break_msg(get_message("message", name=user.get_name(), message=message))
+    for msg in msgs:
+        user.send_message(msg, parse_mode="markdown")
 
+
+def create_start_bot(btn_text=None):
+
+    tellly = InlineKeyboardButton(btn_text or "Start using Tellly", url='t.me/Telllybot')
+    keyboard = InlineKeyboardMarkup([[tellly]])
+    return keyboard
 

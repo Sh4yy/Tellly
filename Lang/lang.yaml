@@ -1,67 +1,43 @@
 start:
-  group: |
-    {Hi|Hello|Hey there|Hello there}, I am the Tellly bot!
-
+  public: |
+    {Hi|Hello|Hey there|Hello there|Hi $name|Heyaa $name}, I am Tellly bot ☺️
 
     You can use me to get anonymous feedback and messages from your friends or co-workers
 
+    To start using me, please message me in private chat
 
-    To start using me, please send me a message in private chat
-    @TelllyBot
   private: |
-    {Hi $name|Hello $name|Hey there|Hello there}, I am the Tellly bot!
-
-
-    You can use me to get anonymous feedback and messages from your friends or co-workers
-
-
-    To start, use the /link command to get your own {unique|personal} link, then you can
-    share the link with your friends on social media, such as twitter, instagram, facebook
-    and your friends can use the link to send you anonymous messages.
-
-    Commands:
-    /link - get your Tellly link
-    /help - how to use this bot
-    /about - about this bot
+    {Hi $name|Hello $name|Hey there|Hello there}, I am Tellly bot ☺️
+    **
+    You can use this bot to get anonymous feedback and messages from your friends
+    **
+    To start, get your own {unique|personal} link using /link
 
 about:
-  group: |
+  public: |
     This bot can be used to get anonymous feedback from your friends or co-workers.
-
-
+    **
     To use this service, please message me in private chat
 
   private: |
-    {Hi $name|Hello $name|Hey there|Hello there}, I am the Tellly bot!
-
-
-    You can use me to get anonymous feedback and messages from your friends or co-workers
-
-
-    To start, use the /link command to get your own {unique|personal} link, then you can
-    share the link with your friends on social media, such as twitter, instagram, facebook
-    and your friends can use the link to send you anonymous messages.
-
-    Commands:
-    /link - get your Tellly link
-    /help - how to use this bot
-    /about - about this bot
+    You can use this bot to get anonymous feedback and messages from your friends
+    **
+    To start, get your {unique|personal} link using /link
+    Then you can share the link with your friends and they can use the link to send you anonymous messages.
 
 link:
-  group: |
+  public: |
     {Oops!|Oh No!} you cannot use this command in a group chat.
-
     Please message me in private chat
 
   private: |
-    $name, your {unique|personal} Tellly link is:
+    $name, your {unique|personal} Tellly 🤖 link is
 
     $link
 
-
-    You can ask your {peers|friends} to send you anonymous messages by sharing this link with them.
+    Your {peers|friends} can use this link to send you anonymous messages
 
 message: |
-  You have received a new message
-
+  $name, someone just sent you a new Tellly message
+  **
   $message

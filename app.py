@@ -1,8 +1,7 @@
 from flask import Flask
-from config import get_config
 from mongoengine import connect
 from telegram.ext import Updater
-from telegram.ext import CommandHandler
+from telegram.ext import CommandHandler, RegexHandler
 from Controllers.TelegramControllers import *
 
 
@@ -16,6 +15,8 @@ def init_telegram():
     dispatcher.add_handler(CommandHandler('about', help))
     dispatcher.add_handler(CommandHandler('link', link))
     dispatcher.add_handler(CommandHandler('admin_info', admin))
+    dispatcher.add_handler(RegexHandler(f"^{get_config()['telegram']['btn']['link']}$", link))
+    dispatcher.add_handler(RegexHandler(f"^{get_config()['telegram']['btn']['help']}$", help))
 
     return updater
 
