@@ -1,8 +1,13 @@
-from flask import Blueprint, render_template, abort, request
+from flask import Blueprint, render_template, abort, request, redirect
 from Models import User
 from Controllers import TelegramControllers
 
 mod = Blueprint("routes", __name__)
+
+
+@mod.route('/')
+def index():
+    return redirect('https://t.me/telllybot')
 
 
 @mod.route('/<public_id>', methods=['GET'])
@@ -13,7 +18,7 @@ def message(public_id):
     if not user:
         return abort(404)
 
-    return render_template('index.html', user=user)
+    return render_template('message.html', user=user)
 
 
 @mod.route('/<public_id>/submit', methods=['GET'])
