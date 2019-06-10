@@ -1,6 +1,7 @@
 from telegram import Update
 from Models import User, Group
 from Lang import get_message
+from config import get_config
 
 
 def is_private_chat(update: Update):
@@ -93,6 +94,20 @@ def link(bot, update):
         update.message.reply_text(get_message("link/public"), parse_mode="markdown")
 
 
+def admin(bot, update):
+    """ returns server stats to the admin """
+
+    user = get_user(update)
+    if user.chat_id != get_config()['telegram']['admin_id']:
+        update.message.reply_text("you are not authorized to use this command")
+    else:
+        user_ct = User.objects.count()
+        group_ct = Group.objects.count()
+
+        user.send_message(f"Admin Info:\n\nUsers: {user_ct}\
+                          \nGroups: {group_ct}")
+
+
 def new_message(user, message):
     """
     send a new message to the user
@@ -101,3 +116,5 @@ def new_message(user, message):
     """
 
     user.send_message(get_message("message", message=message), parse_mode="markdown")
+
+

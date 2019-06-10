@@ -15,6 +15,7 @@ def init_telegram():
     dispatcher.add_handler(CommandHandler('help', help))
     dispatcher.add_handler(CommandHandler('about', help))
     dispatcher.add_handler(CommandHandler('link', link))
+    dispatcher.add_handler(CommandHandler('admin_info', admin))
 
     return updater
 

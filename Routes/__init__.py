@@ -9,6 +9,7 @@ mod = Blueprint("routes", __name__)
 def message(public_id):
 
     user = User.get_by_public_id(public_id)
+    print(user)
     if not user:
         return abort(404)
 

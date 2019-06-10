@@ -13,9 +13,8 @@ def main():
     updater = init_telegram()
     app = init_app()
     app.register_blueprint(Routes.mod)
-
-    # updater.start_polling()
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    updater.start_polling()
+    app.run(host="0.0.0.0", port=8080, debug=False)
 
 
 if __name__ == '__main__':
