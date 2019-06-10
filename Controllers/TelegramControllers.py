@@ -92,3 +92,12 @@ def link(bot, update):
         _ = get_group(update)
         update.message.reply_text(get_message("link/public"), parse_mode="markdown")
 
+
+def new_message(user, message):
+    """
+    send a new message to the user
+    :param user: user instance
+    :param message: received message
+    """
+
+    user.send_message(get_message("message", message=message), parse_mode="markdown")

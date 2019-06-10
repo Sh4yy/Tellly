@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 from config import get_config
 from mongoengine import connect
 from telegram.ext import Updater
@@ -29,5 +29,5 @@ def init_db():
 
 def init_app():
     """ initialize flask app """
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="static")
     return app

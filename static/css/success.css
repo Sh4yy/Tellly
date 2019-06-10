@@ -55,12 +55,16 @@ body {
     line-height: 23px;
     text-align: center;
     color: #606060;
+    width: 260px;
+    position: relative;
+    left: calc(50vw - 130px);
 }
 
 #success-check {
     position: relative;
-    width: 150px;
-    left: calc(50vw - 75px);
+    width: 130px;
+    left: calc(50vw - 65px);
+    margin-bottom: 20px;
 }
 
 .cta-btn {

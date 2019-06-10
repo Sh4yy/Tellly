@@ -90,10 +90,14 @@ class User(Document):
         file_path = "static/images/profile/" + file_name
 
         if os.path.exists(file_path):
-            return file_path
+            return file_name
 
         photo.get_file().download(custom_path=file_path)
-        return file_path
+        return file_name
+
+    def get_name(self):
+        """ get user's name, if name is None, will return username """
+        return self.first_name.capitalize() if self.first_name else self.username
 
     def __str__(self):
         return f"<User(chat_id={self.chat_id}, public_id={self.public_id})>"

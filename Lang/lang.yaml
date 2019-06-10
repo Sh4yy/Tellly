@@ -60,3 +60,8 @@ link:
 
 
     You can ask your {peers|friends} to send you anonymous messages by sharing this link with them.
+
+message: |
+  You have received a new message
+
+  $message

@@ -5,27 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tellly</title>
+
+    <style>
+    #profile {
+        {% if user.get_profile_picture() == None %}
+            display: none;
+        {% else %}
+            background-image: url({{url_for('static', filename='images/profile/' + user.get_profile_picture() ) }});
+        {% endif %}
+    }
+    </style>
     <link rel="stylesheet" href="../static/css/index.css">
 
 </head>
 <body>
 
     <div class="nav-bar">
-        <a class="app-name" href="">Tellly</a>
-        <img class="logo" src="../static/assets/logo.png" alt="Tellly Logo">
+        <a class="app-name" href="https://t.me/Telllybot">Tellly</a>
+        <a href="https://t.me/Telllybot"><img class="logo" src="../static/assets/logo.png" alt="Tellly Logo"></a>
     </div>
 
     <div class="container">
         
         <div class="user-info">
-            <div id="profile"></div>
-            <h3 id="name">Sarah</h3>
+            <div id="profile" ></div>
+            <h3 id="name">{{user.get_name()}}</h3>
         </div>
     
-        <div class="submittion">
-            <textarea class="inp-text" maxlength="270" placeholder="Tell Sarah something and we will never say it was from you!"></textarea>
+        <form id="msg" class="submittion" action="/{{user.public_id}}/submit">
+            <textarea required name="message" form="msg" class="inp-text" maxlength="270" placeholder="Tell {{user.get_name()}} something and we will never say it was from you!"></textarea>
             <button class="submit-btn">Send</button>
-        </div>
+        </form>
 
     </div>
 
