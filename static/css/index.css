@@ -22,18 +22,18 @@ body {
 }
 
 .logo {
-    width: 3.5em;
-    height: 3.5em;
-    padding: 20px 35px; 
+    width: 3em;
+    height: 3em;
+    padding: 10px 35px; 
 }
 
 .app-name {
-    font-size: 2.2em;
+    font-size: 1.8em;
     font-family: 'Roboto';
     font-weight: 500;
     text-decoration: none;
     color: #2e2e2e;
-    padding: 20px 35px
+    padding: 10px 35px
 }
 
 .container {
@@ -49,9 +49,10 @@ body {
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
     border-radius: 50%;
+    margin-top: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -60,7 +61,7 @@ body {
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.2m;
     line-height: 42px;
     color: #606060;
 }
@@ -74,7 +75,6 @@ body {
 
 .inp-text {
     width: 80vw;
-    height: 60vw;
     max-width: 500px;
     max-height: 300px;
     background: #F5F5F5;
@@ -84,12 +84,13 @@ body {
     border-radius: 15px;
     padding: 0px 10px;
     margin: 0px 10px;
+    margin-top: -20px;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 1.4em;
+    font-size: 1.1em;
     padding: 1em;
-    /* line-height: px; */
+    -webkit-appearance: none;
 }
 
 .submit-btn {
@@ -97,13 +98,14 @@ body {
     top: 10px;
     display: block;
     width: 40%;
-    height: 20%;
+    height: 50px;
     margin-left: 30%;
     margin-right: 30%;
     background: linear-gradient(197.94deg, #FAD961 -133.21%, #F76B1C 147.36%);
     box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.102582);
     border-radius: 27.625px;
     border-style: solid;
+    border-color: #F8F8F8;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
